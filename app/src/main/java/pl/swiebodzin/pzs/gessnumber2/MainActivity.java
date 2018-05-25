@@ -142,8 +142,10 @@ public class MainActivity extends AppCompatActivity {
             if(globalCounter == 0) {
                 if(collectPoints1 > collectPoints2) {
                     getGameOverActivity(1);
-                } else {
+                } else if (collectPoints1 < collectPoints2){
                     getGameOverActivity(2);
+                } else if(collectPoints1 == collectPoints2) {
+                    getGameOverActivity(0);
                 }
 
             }
@@ -163,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
                 finalPoints = collectPoints2;
                 winner = winner + 2 + " zdobywając: " + finalPoints;
                 break;
+            case 0:
+                winner = "REMIS!!";
         }
 
         intent.putExtra("winner", winner);
