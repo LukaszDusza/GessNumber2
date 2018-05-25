@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView pointsPlayer1;
     private TextView pointsPlayer2;
     private TextView currentNumber;
+    private TextView roundNumText;
     private EditText editText;
     int currentPlayer = 1;
     int counter = 5;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         pointsPlayer2 = findViewById(R.id.pointsPlayer2);
         editText = findViewById(R.id.editText);
         button = findViewById(R.id.button);
+        roundNumText = findViewById(R.id.roundNumText);
 
         button.setText("START");
         currentNumber.setText("");
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         player2.setText("");
         pointsPlayer1.setText("");
         pointsPlayer2.setText("");
+        roundNumText.setText("Pozostało: " + String.valueOf(globalCounter) + " rund.");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 player2.setText("you turn");
                 player1.setText("");
                 counter = 5;
+                editText.setText("");
                 break;
 
             case 2:
@@ -83,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 player1.setText("you turn");
                 player2.setText("");
                 counter = 5;
+                editText.setText("");
                 break;
         }
 
@@ -131,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             return  Integer.parseInt(editText.getText().toString());
         } catch (NumberFormatException e) {
             Log.d("errors", "number not found!!!");
+            Toast.makeText(getBaseContext(), "POdaj liczbę!",Toast.LENGTH_SHORT).show();
         }
         return  0;
 
@@ -139,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
     public void checkCounter() {
         if(counter == 0) {
             globalCounter--;
+            roundNumText.setText("Pozostało: " + String.valueOf(globalCounter) + " rund.");
             if(globalCounter == 0) {
                 if(collectPoints1 > collectPoints2) {
                     getGameOverActivity(1);
