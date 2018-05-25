@@ -140,13 +140,32 @@ public class MainActivity extends AppCompatActivity {
         if(counter == 0) {
             globalCounter--;
             if(globalCounter == 0) {
-                getGameOverActivity();
+                if(collectPoints1 > collectPoints2) {
+                    getGameOverActivity(1);
+                } else {
+                    getGameOverActivity(2);
+                }
+
             }
         }
     }
 
-    public void getGameOverActivity() {
+    public void getGameOverActivity(int currentPlayer) {
         Intent intent = new Intent(this, GameOverActivity.class);
+        String winner = "Wygrywa gracz: ";
+        int finalPoints = 0;
+        switch (currentPlayer) {
+            case 1:
+                finalPoints = collectPoints1;
+                winner = winner + 1 + " zdobywając: " + finalPoints;
+                break;
+            case 2:
+                finalPoints = collectPoints2;
+                winner = winner + 2 + " zdobywając: " + finalPoints;
+                break;
+        }
+
+        intent.putExtra("winner", winner);
         startActivity(intent);
 
     }
