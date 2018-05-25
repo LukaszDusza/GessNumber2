@@ -1,5 +1,6 @@
 package pl.swiebodzin.pzs.gessnumber2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             counter--;
             button.setText(String.valueOf(counter));
             if(counter == 0) {
+                checkCounter();
                 shiftPlayer(currentPlayer);
             }
 
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+
         } catch (NumberFormatException e) {
             Toast.makeText(getBaseContext(), "Podaj liczbę", Toast.LENGTH_SHORT).show();
 
@@ -130,6 +133,21 @@ public class MainActivity extends AppCompatActivity {
             Log.d("errors", "number not found!!!");
         }
         return  0;
+
+    }
+
+    public void checkCounter() {
+        if(counter == 0) {
+            globalCounter--;
+            if(globalCounter == 0) {
+                getGameOverActivity();
+            }
+        }
+    }
+
+    public void getGameOverActivity() {
+        Intent intent = new Intent(this, GameOverActivity.class);
+        startActivity(intent);
 
     }
 }
